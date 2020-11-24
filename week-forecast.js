@@ -5,7 +5,7 @@
 /* -----------------------------------------------
 Script      : week-forecast.js
 Author      : dev@supermamon.com
-Version     : 1.0.0
+Version     : 1.0.1
 Description :
   A widget script to display the week's weather 
   forecast
@@ -14,6 +14,8 @@ Requested from Reddit:
 https://www.reddit.com/r/Scriptable/comments/jzxgtv/is_there_any_script_for_widget_of_week_long_that/
 
 Changelog   :
+v1.0.1
+- (fix) un-uniform coloring
 v1.0.0
 - Initial release
 ----------------------------------------------- */
@@ -39,6 +41,7 @@ const MAX_DAYS = 5
 
 // best to use a monospace font for alignment
 const GLOBAL_FONT = 'Menlo-Regular'
+const GLOBAL_TEXT_COLOR = Color.white()
 
 // this will auto-detect location. If you wish 
 // to provide specific location add a lat & lon 
@@ -87,13 +90,14 @@ async function createWidget(data, widgetFamily='medium') {
 
     const day = hstack.addText(dayName)
     day.font = useFont
+    day.textColor = GLOBAL_TEXT_COLOR
     
     hstack.addSpacer()
 
     const sf = SFSymbol.named(cond.weather[0].sfsymbol)
     sf.applyFont(useFont)
     const icon = hstack.addImage(sf.image)
-    icon.tintColor = Color.white()
+    icon.tintColor = GLOBAL_TEXT_COLOR
     icon.resizable = false
 
     hstack.addSpacer(5)
@@ -101,18 +105,21 @@ async function createWidget(data, widgetFamily='medium') {
     const pop = `${Math.round(cond.pop * 100)}%`.padStart(4,' ')
     const chance = hstack.addText(pop)
     chance.font = useFont
+    chance.textColor = GLOBAL_TEXT_COLOR
 
     hstack.addSpacer()
 
     const min = `${Math.round(cond.temp.min)}`.padEnd(3,' ')
     const minTxt = hstack.addText(min)
     minTxt.font = useFont
+    minTxt.textColor = GLOBAL_TEXT_COLOR
 
     hstack.addSpacer(5)
 
     const max = `${Math.round(cond.temp.max)}`.padEnd(3,' ')
     const maxTxt = hstack.addText(max)
     maxTxt.font = useFont
+    maxTxt.textColor = GLOBAL_TEXT_COLOR
 
   }
 
